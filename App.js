@@ -1,58 +1,59 @@
-
-
-// import React, {Component} from 'react';
-// import { AppState, View, Text } from "react-native";
-// import PushController from './src/components/Push';
-// import PushNotification from 'react-native-push-notification';
-
-// class App extends Component {
-//   constructor() {
-//     super();
-//     this.handleAppStateChange = 
-//     this.handleAppStateChange.bind(this);
-//     this.state = {ms:5000};
-//   }
-
-//   componentDidMount(){
-//     AppState.addEventListener(
-//       'change', this.handleAppStateChange);
-//   }
-
-//   handleAppStateChange(appState) {
-//     if(appState === 'background') {
-//       PushNotification.localNotificationSchedule({
-//         title: 'Pesan Masuk',
-//         message: 'Haik kak, ada pesan masuk nih',
-//         date: new Date(Date.now() + (this.state.ms)),
-//       });
-//     }
-//   }
-
-//   render() {
-//     return (
-//       <View>
-//         <Text> Halo </Text>
-//         <PushController/>
-//       </View>
-//     );
-//   }
-// }
-
-// export default App;
-
-
-
-
 import React, { Component } from 'react';
 import { Container, Header, Content, Footer, Spinner, Thumbnail, Icon, Button, Text, Form, Item, Image, Label, Input, Fab, View, FooterTab, Body, Left, Right} from 'native-base';
+import { AppState, Alert, Modal} from 'react-native'
+import { createStackNavigator } from 'react-navigation';
+import PushController from './src/components/Push';
+import PushNotification from 'react-native-push-notification';
 
 import AlbumList from './src/components/AlbumList';
+import Category from './src/components/Category';
+import Product from './src/components/Product';
+// import Login from './src/components/Login';
+
+const RootStack = createStackNavigator(
+  {
+    AlbumList: {screen: AlbumList},
+    Category : {screen: Category},
+    Product : {screen: Product},
+    // Login : {screen: Login}
+  },
+  {
+    initialRouteName : "AlbumList"
+  }
+)
+
 
 class App extends Component {
 
   constructor() {
     super();
-    this.state = {active: true};
+    this.handleAppStateChange = 
+    this.handleAppStateChange.bind(this);
+
+    this.state = {
+      active: true,
+      modalVisible: false,
+      ms:50000
+    };
+  }
+
+  componentDidMount(){
+    AppState.addEventListener(
+      'change', this.handleAppStateChange);
+  }
+
+  handleAppStateChange(appState) {
+    if(appState === 'background') {
+      PushNotification.localNotificationSchedule({
+        title: 'Pesan Masuk',
+        message: 'Update terbaru Mainplustoys !',
+        date: new Date(Date.now() + (this.state.ms)),
+      });
+    }
+  }
+
+  setModal(visible) {
+    this.setState({modalVisible: visible});
   }
 
  render() { 
@@ -66,48 +67,53 @@ class App extends Component {
           </Item>
         </Header>
 
-        <Content>
 
-        {/* <View style={{flexDirection: 'row', justifyContent:'center'}}>
-          <Image
-          style={{width: 250, height: 250}}
-          source={require('../images/logo_main_plus_opaque.png')}
-          />
-        </View> */}
 
-        <AlbumList />
+        {/* <Content> */}
+
+          <RootStack />
+
+          <Modal
+            animationType="slide" transparent={false}
+            visible={this.state.modalVisible}
+            onRequestClose={() => {}}>
+            <View style={{marginTop: 22}}>
+              <View>
+              <Button block transparent style={{flexDirection: 'row', textAlign:'center'}} title='Tutup Modal' onPress={() => {this.setModal(!this.state.modalVisible);}}>
+              <Text>Tutup modal</Text></Button>
+                
+              {/* <Button block transparent style={{flexDirection: 'row', textAlign:'center'}} title='Login' onPress={() => this.navigation.navigate("Login")}>
+              <Text>Login</Text></Button> */}
+              </View>
+            </View>
+          </Modal>
         
-{/* 
-          <Icon name='share' style={{fontSize:40, color:'red'}} type='FontAwesome' />
-          <Thumbnail square source={{uri:''}}/>
-          
-          <Button iconLeft light>
-          <Icon name='arrow-back' />
-          <Text>Back</Text>
-          </Button>
-     */}
-        </Content>
+          <PushController/>
+
+        {/* </Content> */}
+
+
+
 
         <Footer>
-        <FooterTab>
+          <FooterTab>
 
-        <Left>
-            <Button vertical><Icon name="home" />
-            <Text> Kami </Text></Button>
-        </Left>
+          <Left>
+              <Button vertical><Icon name="home" />
+              <Text> Rumah </Text></Button>
+          </Left>
           
-        
-            <Button vertical active><Icon name='menu' />
-            <Text> Menu </Text></Button>
-        
+              <Button vertical onPress={() => {this.setModal(true);}}><Icon name='menu' />
+              <Text> Menu </Text></Button>
 
-        <Right>
-            <Button vertical><Icon name="cart" />
-            <Text> Cart </Text></Button>
-        </Right>
-        
-        </FooterTab>
+          <Right>
+              <Button vertical><Icon name="cart" />
+              <Text> Cart </Text></Button>
+          </Right>
+          
+          </FooterTab>
         </Footer>
+
       </Container>
       );
   }
@@ -116,54 +122,6 @@ class App extends Component {
 export default App;
 
 
-////////// LATIHAN AMBIL DATA
 
 
 
-
-
-// import React, { Component } from 'react';
-// import { Container, Header, Content, Text } from "native-base";
-// import axios from 'axios';
-
-// class App extends Component {
-
-//   constructor(){
-//     super();
-//     this.state = {member:[]};
-//   }
-
-//   componentDidMount(){
-//     var url='http://jsonplaceholder.typicode.com/users';
-//     axios.get(url).then((ambilData)=>{
-
-//       console.log(ambilData.data);
-
-//       // buat liat hasil log ini dari cmd masuk ke foldernya, terus ketik react-native log-android
-
-//       this.setState({
-//         member: ambilData.data
-//       })
-//     })
-//   }
-
-//   render(){
-
-//     const data = this.state.member.map(
-//       (item,index)=>{
-//         var daftar = [item.id, item.name].join('-');
-//         // di data ada 2 yang bs diambil dari jsonnya, id sama name 
-//         return <Text key={index}>{daftar}</Text>
-//       })
-
-//     return (
-//     <Container>
-//       <Header/>
-//       <Text style={{fontSize:50}}> Daftar ibu2 pkk </Text>
-//       {data}
-//     </Container>
-//     )
-//   }
-// }
-
-// export default App;

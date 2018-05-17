@@ -1,42 +1,43 @@
 import React, { Component } from 'react';
 import { Text, View, ScrollView, Image } from 'react-native';
+import { Container, Button } from 'native-base';
 import axios from 'axios';
-import AlbumDetail from './AlbumDetail';
-// import AlbumDetailHorizontal from './AlbumDetailHorizontal';
+
+
 
 class AlbumList extends Component 
 {
-    state = {
-        albums: []
-    };
-    
+
+    constructor(){
+        super()
+        this.state = {season: []}
+      }
+
     componentWillMount()
     {
-        axios.get('https://rallycoding.herokuapp.com/api/music_albums')
-            .then(response => 
-                this.setState(
-                    { 
-                        albums: response.data 
-                    })
-                ); 
+        axios.get('http://192.168.56.1:3001/seasons')
+        .then ((dataseason) =>
+        {
+          this.setState({season: dataseason.data});
+          console.log(this.state.season)
+        })
     }
-
-    renderAlbums() {
-        return this.state.albums.map(album => 
-                <AlbumDetail key={album.title} album={album} />
-        );
-    }
-    // render ini buat melooping yang di dalem text
-
-    // renderAlbumsHorizontal() {
-    //     return this.state.albums.map(album => 
-    //             <AlbumDetailHorizontal key={album.title} album={album} />
-    //     );
-    // }
 
     render() 
     {
+
+        const data = this.state.season.map(
+            (item,index)=>{
+              var seasonid = item.id;
+              // di data ada 2 yang bs diambil dari jsonnya, id sama name 
+              return (
+                <Button block transparent onPress={() => this.props.navigation.navigate("Category",{seasonID: seasonid})} key = {index}><Text> {item.season} </Text></Button>
+              )
+            })
+
+
         return (
+            <Container>
             <View style={{backgroundColor: "white", 
             // backgroundColor: "#ECEFF1", 
             left:0,
@@ -46,12 +47,12 @@ class AlbumList extends Component
 
                 <View style={{flexDirection: 'row', justifyContent:'center'}}>
                 <Image
-                style={{width: 330, height: 150, marginBottom: 10, marginTop: 10}}
+                style={{width: 330, height: 150, marginBottom: 5, marginTop: 5}}
                 source={require('../images/logo_main_plus_opaque.png')}
                 />
                 </View>
 
-                <ScrollView horizontal={true} style={{marginBottom: 5, marginTop: 10}} >
+                <ScrollView horizontal={true} style={{marginBottom: 5, marginTop: 5}} >
                     {/* {this.renderAlbumsHorizontal()} */}
  
                         <Image source={require('../images/180207_POSTER_pesawat-Recovered.jpg')} style={{width: 360, height: 270}} />
@@ -59,10 +60,13 @@ class AlbumList extends Component
                         <Image source={require('../images/180207_POSTER_F1.jpg')} style={{width: 360, height: 270}} />
             
                 </ScrollView>
-                <ScrollView style={{marginBottom: 10}} >
-                    {this.renderAlbums()}
-                </ScrollView>
+
+                <Text style={{flexDirection: 'row', textAlign:'center'}}>SEASON</Text>
+
+                <View>{data}</View>
+
             </View>
+            </Container>
         );
     } 
 }

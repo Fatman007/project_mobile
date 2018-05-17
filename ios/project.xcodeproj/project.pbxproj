@@ -51,6 +51,7 @@
 		4BE794DDCB8B4E78A33FB13B /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AE9424F805284E59951F523A /* Zocial.ttf */; };
 		A48E04731B304AADBB5DB6AC /* Feather.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9AB5D5FB548B48B8B2225A9C /* Feather.ttf */; };
 		46C85156B3854B57B293A0AD /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 61275073E6A143A6BBB7AB9A /* MaterialCommunityIcons.ttf */; };
+		6B0E3338DBB64D64A0FB91F7 /* rubicon-icon-font.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C8A4B2E81D1E49E59FE56B88 /* rubicon-icon-font.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -371,6 +372,7 @@
 		AE9424F805284E59951F523A /* Zocial.ttf */ = {isa = PBXFileReference; name = "Zocial.ttf"; path = "../node_modules/native-base/Fonts/Zocial.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		9AB5D5FB548B48B8B2225A9C /* Feather.ttf */ = {isa = PBXFileReference; name = "Feather.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/Feather.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		61275073E6A143A6BBB7AB9A /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; name = "MaterialCommunityIcons.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		C8A4B2E81D1E49E59FE56B88 /* rubicon-icon-font.ttf */ = {isa = PBXFileReference; name = "rubicon-icon-font.ttf"; path = "../node_modules/native-base/Fonts/rubicon-icon-font.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -651,6 +653,7 @@
 				AE9424F805284E59951F523A /* Zocial.ttf */,
 				9AB5D5FB548B48B8B2225A9C /* Feather.ttf */,
 				61275073E6A143A6BBB7AB9A /* MaterialCommunityIcons.ttf */,
+				C8A4B2E81D1E49E59FE56B88 /* rubicon-icon-font.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -1115,6 +1118,7 @@
 				4BE794DDCB8B4E78A33FB13B /* Zocial.ttf in Resources */,
 				A48E04731B304AADBB5DB6AC /* Feather.ttf in Resources */,
 				46C85156B3854B57B293A0AD /* MaterialCommunityIcons.ttf in Resources */,
+				6B0E3338DBB64D64A0FB91F7 /* rubicon-icon-font.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
